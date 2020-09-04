@@ -3,7 +3,7 @@
     "description": "Symfonys facade for The Laravel Framework.",
     "keywords": ["framework", "laravel", "symfony"],
     "license": "MIT",
-    "type": "project",
+    "type": "library",
     "require": {
         "vilnius-technology/symfonys-facade": "dev-master"
     },
@@ -14,6 +14,8 @@
             "VilniusTechnology\\SymfonysFacade\\": "src"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
     "config": {
         "preferred-install": "dist"
     }
