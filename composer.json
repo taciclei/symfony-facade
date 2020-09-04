@@ -5,24 +5,9 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "laravel/framework": "~5.1",
-        "symfony/symfony": "~2.6",
-        "symfony/security-bundle": "~2.6"
+        "vilnius-technology/symfonys-facade": "dev-master"
     },
     "require-dev": {
-        "ongr/elasticsearch-bundle": "~0.1",
-        "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1",
-        "phpmd/phpmd" : "@stable",
-        "sebastian/phpcpd": "~2.0",
-        "sebastian/phpdcd": "~1.0",
-        "phploc/phploc": "~2.0",
-        "ongr/ongr-strict-standard": "2.*",
-        "squizlabs/php_codesniffer": "2.*",
-        "orchestra/testbench": "~3.0",
-        "illuminate/html": "~5",
-        "laravel/laravel": "~5",
-        "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
         "psr-4": {
