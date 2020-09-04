@@ -1,5 +1,12 @@
 {
     "name": "taciclei/symfonys-facade",
+    "authors": [
+        {
+            "name": "Taciclei Sousa",
+            "email": "souza@taciclei.com",
+            "role": "Developer"
+        }
+    ],
     "description": "Symfonys facade for The Laravel Framework.",
     "keywords": ["framework", "laravel", "symfony"],
     "license": "MIT",
