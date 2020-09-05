@@ -1,6 +1,6 @@
 <?php
 
-namespace VilniusTechnology\SymfonysFacade\Services\Symfony;
+namespace taciclei\SymfonysFacade\Services\Symfony;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;

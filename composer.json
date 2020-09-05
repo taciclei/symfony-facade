@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "VilniusTechnology\\SymfonysFacade\\": "src"
+            "taciclei\\SymfonysFacade\\": "src"
         }
     },
     "minimum-stability": "dev",

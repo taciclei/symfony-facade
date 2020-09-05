@@ -1,4 +1,4 @@
-<?php namespace VilniusTechnology\SymfonysFacade\Services\Symfony;
+<?php namespace taciclei\SymfonysFacade\Services\Symfony;
 
 use Illuminate\Support\Facades\App;
 use Symfony\Component\DependencyInjection\ContainerInterface;

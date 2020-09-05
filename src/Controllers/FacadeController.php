@@ -1,4 +1,4 @@
-<?php namespace VilniusTechnology\SymfonysFacade\Controllers;
+<?php namespace taciclei\SymfonysFacade\Controllers;
 
 /*
  * Created by PhpStorm.
@@ -11,8 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response;
-use VilniusTechnology\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
-use VilniusTechnology\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
+use taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 class FacadeController extends Controller
 {

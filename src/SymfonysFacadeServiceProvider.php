@@ -1,4 +1,4 @@
-<?php namespace VilniusTechnology\SymfonysFacade;
+<?php namespace taciclei\SymfonysFacade;
 
 /*
  * Created by PhpStorm.
@@ -12,10 +12,10 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Finder\Finder;
-use VilniusTechnology\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
-use VilniusTechnology\SymfonysFacade\Facades\Routes\LaraverRouteBuilder;
-use VilniusTechnology\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
-use VilniusTechnology\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use taciclei\SymfonysFacade\Facades\Routes\LaraverRouteBuilder;
+use taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
+use taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 class SymfonysFacadeServiceProvider extends ServiceProvider
 {

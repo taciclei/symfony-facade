@@ -1,4 +1,4 @@
-<?php namespace VilniusTechnology\SymfonysFacade\Controllers;
+<?php namespace taciclei\SymfonysFacade\Controllers;
 
 /*
  * Created by PhpStorm.
@@ -9,7 +9,7 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use VilniusTechnology\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
 
 class ManagerController extends Controller
 {

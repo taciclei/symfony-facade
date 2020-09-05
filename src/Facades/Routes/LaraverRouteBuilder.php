@@ -1,4 +1,4 @@
-<?php namespace VilniusTechnology\SymfonysFacade\Facades\Routes;
+<?php namespace taciclei\SymfonysFacade\Facades\Routes;
 
 /*
  * Created by PhpStorm.

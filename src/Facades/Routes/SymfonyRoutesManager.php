@@ -1,8 +1,8 @@
-<?php namespace VilniusTechnology\SymfonysFacade\Facades\Routes;
+<?php namespace taciclei\SymfonysFacade\Facades\Routes;
 
 use Illuminate\Routing\Router;
 use Symfony\Component\Routing\Route;
-use VilniusTechnology\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 
 class SymfonyRoutesManager
