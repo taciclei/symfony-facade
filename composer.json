@@ -12,7 +12,6 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "vilnius-technology/symfonys-facade": "dev-master"
     },
     "require-dev": {
     },
