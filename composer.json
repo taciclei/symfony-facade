@@ -11,6 +11,11 @@
     "keywords": ["framework", "laravel", "symfony"],
     "license": "MIT",
     "type": "library",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
     "require": {
     },
     "require-dev": {
