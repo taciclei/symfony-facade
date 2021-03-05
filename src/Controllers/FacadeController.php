@@ -1,11 +1,19 @@
-<?php namespace Taciclei\SymfonysFacade\Controllers;
+<?php namespace Phpjit\SymfonysFacade\Controllers;
 
+use ApiPlatform\Core\Action\PlaceholderAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response;
-use Taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
-use Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Phpjit\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
+use Phpjit\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use Symfony\Component\ErrorHandler\Debug;
 
 class FacadeController extends Controller
 {
@@ -19,44 +27,15 @@ class FacadeController extends Controller
         $this->request = $request;
     }
 
-    public function __call($target, $arguments)
+    public function __invoke($target, $arguments = [])
     {
-        $symfonyRoutes = $this->symfonyRoutesManager->getConvertedRoutes();
-        foreach ($symfonyRoutes as $route) {
+        $request = SymfonyRequest::createFromGlobals();
+        //Debug::enable();
+        $kernel = $this->symfonyContainer->kernel;
 
-            $current = $route['symfony_controller'] . ':' . $route['symfony_action'];
-            if ($current == $target ) {
-
-                if (strstr($target, '.') !== false) {
-                    //Route as a service, dispatch from container.
-                    $controllersService = $this->symfonyContainer->getSymfonyService($route['symfony_controller']);
-                    $actionMethodName = $route['symfony_action'];
-
-                    $params = Request::createFromGlobals();
-
-                    //@TODO: params passing should be fixed blemba...
-                    /** @var Response $response */
-                    $response = $controllersService->$actionMethodName($this->convertRequest(), 'fos.Router.setData');
-
-                    if ($response instanceof Response) {
-                        $content = $response->getContent();
-                    } else {
-                        $content = $response;
-                    }
-
-                    return $content;
-                }
-
-                $actionMethodName = $route["symfony_action"];
-                $controllerClass = $route["symfony_controller"];
-
-                $controllerObj = new $controllerClass();
-                $controllerObj->setContainer($this->symfonyContainer->getContainer());
-                $response = $controllerObj->$actionMethodName(Request::createFromGlobals());
-
-                return $response;
-            }
-        }
+        $response = $kernel->handle($request);
+        $response->send();
+        $kernel->terminate($request, $response);
     }
 
     private function convertRequest()

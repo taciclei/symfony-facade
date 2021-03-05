@@ -1,14 +1,15 @@
-<?php namespace Taciclei\SymfonysFacade;
+<?php namespace Phpjit\SymfonysFacade;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Finder\Finder;
-use Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
-use Taciclei\SymfonysFacade\Facades\Routes\LaraverRouteBuilder;
-use Taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
-use Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use Phpjit\SymfonysFacade\Commands\SymfonyCommand;
+use Phpjit\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use Phpjit\SymfonysFacade\Facades\Routes\LaraverRouteBuilder;
+use Phpjit\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
+use Phpjit\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 class SymfonysFacadeServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,6 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
 
         $this->symfonyCommandsFacade = new SymfonyCommandsFacade($this->symfonyContainer);
 
-        //$this->loadAutoloader(base_path('packages'));
         $this->setupRoutes($this->app->router);
         $this->loadViewsFrom(realpath(__DIR__ . '/../views'), 'SymfonysFacade');
         $this->registerCommands();
@@ -47,19 +47,19 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer', function () {
+        $this->app->bind(SymfonyContainer::class, function () {
             return $this->symfonyContainer;
         });
 
-        $this->app->bind('Taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager', function () {
+        $this->app->bind(SymfonyRoutesManager::class, function () {
             return $this->routeManager;
         });
 
-        $this->app->bind('Taciclei\SymfonysFacade\Facades\Routes\LaraverRouteBuilder', function () {
+        $this->app->bind(LaraverRouteBuilder::class, function () {
             return $this->routebuilder;
         });
 
-        $this->app->bind('Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade', function () {
+        $this->app->bind(SymfonyCommandsFacade::class, function () {
             return $this->symfonyCommandsFacade;
         });
     }
@@ -71,7 +71,7 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
      */
     public function setupRoutes(Router $router)
     {
-        $router->group(['namespace' => 'Taciclei\SymfonysFacade\Controllers'], function () {
+        $router->group(['namespace' => 'Phpjit\SymfonysFacade\Controllers'], function () {
             require __DIR__ . '/Http/routes.php';
         });
 
@@ -97,6 +97,6 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
      * Registers commands facade.
      */
     public function registerCommands() {
-        //$this->commands(['Taciclei\SymfonysFacade\Commands\SymfonyCommand']);
+        $this->commands([SymfonyCommand::class]);
     }
 }

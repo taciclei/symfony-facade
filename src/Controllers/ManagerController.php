@@ -1,15 +1,8 @@
-<?php namespace Taciclei\SymfonysFacade\Controllers;
-
-/*
- * Created by PhpStorm.
- * User: lukasm
- * Date: 15-06-03
- * Time: 14:26
- */
+<?php namespace Phpjit\SymfonysFacade\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use Phpjit\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
 
 class ManagerController extends Controller
 {

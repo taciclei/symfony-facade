@@ -1,24 +1,17 @@
-<?php namespace Taciclei\SymfonysFacade\Commands;
-
-/*
- * Created by PhpStorm.
- * User: lukasm - vilnius.technology
- * Date: 15.5.1
- * Time: 18.55
- */
+<?php namespace Phpjit\SymfonysFacade\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use Phpjit\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
 
 class SymfonyCommand extends Command
 {
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'symfony:command';
+    protected $signature = 'sf:cmd {cmd}';
 
     /**
      * The console command description.
@@ -40,37 +33,15 @@ class SymfonyCommand extends Command
     }
 
     /**
-     * Execute the console command.
+     *
      */
-    public function fire()
+    public function handle()
     {
-        $response = $this->scf->runCommand($this->argument('scommand'));
+        $response = $this->scf->runCommand($this->argument('cmd'));
 
         $this->info('');
         $this->info('Symfony responds: ');
         $this->info('');
         $this->info($response);
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['scommand', InputArgument::REQUIRED, 'Enter symfonys command.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [];
     }
 }

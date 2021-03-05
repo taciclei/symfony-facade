@@ -1,9 +1,8 @@
-<?php namespace Taciclei\SymfonysFacade\Facades\Routes;
+<?php namespace Phpjit\SymfonysFacade\Facades\Routes;
 
 use Illuminate\Routing\Router;
 use Symfony\Component\Routing\Route;
-use Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
-
+use Phpjit\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 class SymfonyRoutesManager
 {
@@ -28,7 +27,11 @@ class SymfonyRoutesManager
     public function addSymfonyRoutes(Router $router)
     {
         foreach ($this->routesFromSymfony as $route) {
-            $router->match($route['methods'], $route['path'], $route['action']);
+            $path = str_replace("{_format}", "{_format?}", $route['path']);
+            foreach ($route as $key => $value) {
+                $router->match($route['methods'], $path, $route['action'])->defaults($key, $value);
+            }
+            $router->match($route['methods'], $path, $route['action']);
         }
     }
 
@@ -40,7 +43,7 @@ class SymfonyRoutesManager
         foreach ($this->sc->getSymfonyService('router')->getRouteCollection()->all() as $name => $route) {
             $availableApiRoutes[$name] = $route;
         }
-        
+
         return $availableApiRoutes;
     }
 

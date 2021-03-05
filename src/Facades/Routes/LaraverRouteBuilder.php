@@ -1,53 +1,49 @@
-<?php namespace Taciclei\SymfonysFacade\Facades\Routes;
+<?php namespace Phpjit\SymfonysFacade\Facades\Routes;
 
 use Illuminate\Routing\Route;
+use Phpjit\SymfonysFacade\Controllers\FacadeController;
 
 class LaraverRouteBuilder
 {
 
-    public $prefix = 'Taciclei\SymfonysFacade\Controllers\FacadeController@';
+    public $classFacadeController = FacadeController::class;
 
     private $routes;
+
+    public $prefix;
+
+    /**
+     * LaraverRouteBuilder constructor.
+     */
+    public function __construct()
+    {
+        $this->prefix = $this->classFacadeController;
+    }
+
 
     public function convertRoutes($routes)
     {
         $return = [];
 
         foreach ($routes as  $name => $route) {
-            $action = null;
+            $action = '__invoke';
 
-            if (isset($this->getTransformedController($route)[2])) {
-                // Usual Controller.
-                $bundle = $controller = $this->getTransformedController($route)[0];
-                $controller = $this->getTransformedController($route)[1];
-                $action = $this->getTransformedController($route)[2];
-            } else {
-                // Controller as a service.
-                $bundle = 'service';
-                if(!empty($this->getTransformedController($route))) {
-                    $controller = $this->getTransformedController($route)[0];
-                    $action = $this->getTransformedController($route)[1];
-                }
-
-            }
-
-            $trr['action']['controller'] =  $this->prefix . $controller . $action;
+            $id = md5($route->getPath().':'.$name);
+            $trr['action']['controller'] =  $this->prefix;
             $trr['action']['as'] = $name;
-            $trr['action']['uses'] =  $this->prefix . $controller . ':' .  $action;
+            $trr['action']['uses'] =  $this->prefix;
+            $trr['action']['id'] =  $id;
 
-            $trr["symfony_bundle"] = $bundle;
-            $trr["symfony_action"] = $action;
-            $trr["symfony_service"] = $action;
-            $trr["symfony_route_name"] = $name;
-            $trr["symfony_controller"] = $controller;
-            if(!empty($route->getDefaults()["_controller"])) {
-                $trr["_controller"] = $route->getDefaults()["_controller"];
-            }
+            $trr['defaults'] = $route;
             $trr['methods'] = $this->transformMethods($route);
             $trr['path'] = $route->getPath();
             $trr['name'] = $name;
 
-            $return[] = $trr;
+            if(!empty($route->getDefaults()["_controller"])) {
+                $trr["_controller"] = $route->getDefaults()["_controller"];
+            }
+
+            $return[$id] = $trr;
         }
 
         $this->routes = $return;
@@ -55,13 +51,13 @@ class LaraverRouteBuilder
         return $return;
     }
 
-    private function getTransformedController($route)
+    private function getExplodedController($route)
     {
         if(!empty($route->getDefaults())) {
-            $controllerDirty = explode(':', $route->getDefaults()["_controller"]);
-            if(count($controllerDirty)) {
-                $controllerDirty = explode('.', $route->getDefaults()["_controller"]);
-            }
+            $controllerDirty = explode('::', $route->getDefaults()["_controller"]);
+            //if(count($controllerDirty)) {
+                //$controllerDirty = explode('.', $route->getDefaults()["_controller"]);
+            //}
 
             return $controllerDirty;
         }

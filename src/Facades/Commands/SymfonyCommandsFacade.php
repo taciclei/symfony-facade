@@ -1,18 +1,11 @@
 <?php
 
-namespace Taciclei\SymfonysFacade\Facades\Commands;
+namespace Phpjit\SymfonysFacade\Facades\Commands;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
-use Taciclei\SymfonysFacade\Services\Symfony\SymfonyKernel;
-
-/*
- * Created by PhpStorm.
- * User: lukasm - vilnius.technology
- * Date: 15.5.1
- * Time: 18.55
- */
+use Phpjit\SymfonysFacade\Services\Symfony\SymfonyKernel;
 
 class SymfonyCommandsFacade
 {

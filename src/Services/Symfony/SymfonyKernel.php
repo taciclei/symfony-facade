@@ -1,6 +1,6 @@
 <?php
 
-namespace Taciclei\SymfonysFacade\Services\Symfony;
+namespace Phpjit\SymfonysFacade\Services\Symfony;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
@@ -12,6 +12,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Phpjit\SymfonyBundles;
 
 class SymfonyKernel extends Kernel
 {
@@ -104,11 +105,11 @@ class SymfonyKernel extends Kernel
 
     private function getBundlesFromConfig()
     {
-        $bundleProvider = config('app.symfonysfacade_bundles');
-        if ($bundleProvider === null) {
-            $bundleProvider = '\Taciclei\SymfonyBundles';
+        $bundleProvider = config('SymfonyBundles');
+        if (!empty($bundleProvider)) {
+            return $bundleProvider;
         }
 
-        return $bundleProvider::getBundles();
+        return [];
     }
 }
