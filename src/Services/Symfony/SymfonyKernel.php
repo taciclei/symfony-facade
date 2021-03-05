@@ -1,15 +1,21 @@
 <?php
 
-namespace taciclei\SymfonysFacade\Services\Symfony;
+namespace Taciclei\SymfonysFacade\Services\Symfony;
 
+use ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle;
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class SymfonyKernel extends Kernel
 {
+    use MicroKernelTrait;
     /**
      * Symfonys app dir.
      *
@@ -46,26 +52,41 @@ class SymfonyKernel extends Kernel
     }
 
     /**
-     * Register Symfony2 core bundles.
      *
      * @return array
      */
     public function registerBundles()
     {
         $bundles = [
-            new FrameworkBundle(),
-            new TwigBundle(),
-            new SecurityBundle(),
+            new FrameworkBundle()
         ];
-
         return array_merge($this->getBundlesFromConfig(), $bundles);
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    protected function configureContainer(ContainerConfigurator $container): void
     {
-        $loader->load( $this->appDir . '/config/config.yml');
+        $container->import($this->appDir . '/config/{packages}/*.yaml');
+        $container->import($this->appDir . '/config/{packages}/'.$this->environment.'/*.yaml');
+
+        if (is_file($this->appDir . '/config/services.yaml')) {
+            $container->import($this->appDir . '/config/{services}.yaml');
+            $container->import($this->appDir . '/config/{services}_'.$this->environment.'.yaml');
+        } elseif (is_file($path = \dirname(__DIR__).'/config/services.php')) {
+            (require $path)($container->withPath($path), $this);
+        }
     }
 
+    protected function configureRoutes(RoutingConfigurator $routes): void
+    {
+        $routes->import($this->appDir . '/config/{routes}/'.$this->environment.'/*.yaml');
+        $routes->import($this->appDir . '/config/{routes}/*.yaml');
+
+        if (is_file($this->appDir . '/config/routes.yaml')) {
+            $routes->import($this->appDir . '/config/{routes}.yaml');
+        } elseif (is_file($path = $this->appDir . '/config/routes.php')) {
+            (require $path)($routes->withPath($path), $this);
+        }
+    }
     public function getRootDir()
     {
         return $this->appDir;
@@ -85,7 +106,7 @@ class SymfonyKernel extends Kernel
     {
         $bundleProvider = config('app.symfonysfacade_bundles');
         if ($bundleProvider === null) {
-            $bundleProvider = '\VilniusTechnology\SymfonyBundles';
+            $bundleProvider = '\Taciclei\SymfonyBundles';
         }
 
         return $bundleProvider::getBundles();

@@ -1,4 +1,4 @@
-<?php namespace taciclei\SymfonysFacade\Commands;
+<?php namespace Taciclei\SymfonysFacade\Commands;
 
 /*
  * Created by PhpStorm.
@@ -9,7 +9,7 @@
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
 
 class SymfonyCommand extends Command
 {

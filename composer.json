@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "taciclei\\SymfonysFacade\\": "src"
+            "Taciclei\\SymfonysFacade\\": "src"
         }
     },
     "minimum-stability": "dev",

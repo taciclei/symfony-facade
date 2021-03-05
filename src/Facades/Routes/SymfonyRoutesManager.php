@@ -1,8 +1,8 @@
-<?php namespace taciclei\SymfonysFacade\Facades\Routes;
+<?php namespace Taciclei\SymfonysFacade\Facades\Routes;
 
 use Illuminate\Routing\Router;
 use Symfony\Component\Routing\Route;
-use taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 
 class SymfonyRoutesManager
@@ -17,6 +17,7 @@ class SymfonyRoutesManager
         $this->prefix = $this->rb->prefix;
 
         $this->routesFromSymfony = $this->rb->convertRoutes($this->getRawRoutes());
+
     }
 
     /**
@@ -35,10 +36,11 @@ class SymfonyRoutesManager
     {
         $availableApiRoutes = [];
         /** @var  $route Route */
+
         foreach ($this->sc->getSymfonyService('router')->getRouteCollection()->all() as $name => $route) {
             $availableApiRoutes[$name] = $route;
         }
-
+        
         return $availableApiRoutes;
     }
 

@@ -1,7 +1,8 @@
-<?php namespace taciclei\SymfonysFacade\Services\Symfony;
+<?php namespace Taciclei\SymfonysFacade\Services\Symfony;
 
 use Illuminate\Support\Facades\App;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class SymfonyContainer
 {
@@ -17,8 +18,8 @@ class SymfonyContainer
         $kernel = new SymfonyKernel(App::environment(), true);
         $kernel->boot();
 
-
         $this->container = $kernel->getContainer();
+
     }
 
     public function getContainer()

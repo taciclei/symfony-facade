@@ -1,21 +1,14 @@
-<?php namespace taciclei\SymfonysFacade;
-
-/*
- * Created by PhpStorm.
- * User: lukasm - vilnius.technology
- * Date: 15.5.1
- * Time: 18.55
- */
+<?php namespace Taciclei\SymfonysFacade;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Finder\Finder;
-use taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
-use taciclei\SymfonysFacade\Facades\Routes\LaraverRouteBuilder;
-use taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
-use taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
+use Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade;
+use Taciclei\SymfonysFacade\Facades\Routes\LaraverRouteBuilder;
+use Taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager;
+use Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer;
 
 class SymfonysFacadeServiceProvider extends ServiceProvider
 {
@@ -34,11 +27,14 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->symfonyContainer = new SymfonyContainer(App::environment(), false);
+
         $this->routebuilder = new LaraverRouteBuilder();
+
         $this->routeManager = new SymfonyRoutesManager($this->symfonyContainer, $this->routebuilder);
+
         $this->symfonyCommandsFacade = new SymfonyCommandsFacade($this->symfonyContainer);
 
-        $this->loadAutoloader(base_path('packages'));
+        //$this->loadAutoloader(base_path('packages'));
         $this->setupRoutes($this->app->router);
         $this->loadViewsFrom(realpath(__DIR__ . '/../views'), 'SymfonysFacade');
         $this->registerCommands();
@@ -51,19 +47,19 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('VilniusTechnology\SymfonysFacade\Services\Symfony\SymfonyContainer', function () {
+        $this->app->bind('Taciclei\SymfonysFacade\Services\Symfony\SymfonyContainer', function () {
             return $this->symfonyContainer;
         });
 
-        $this->app->bind('VilniusTechnology\SymfonysFacade\Facades\Routes\SymfonyRoutesManager', function () {
+        $this->app->bind('Taciclei\SymfonysFacade\Facades\Routes\SymfonyRoutesManager', function () {
             return $this->routeManager;
         });
 
-        $this->app->bind('VilniusTechnology\SymfonysFacade\Facades\Routes\LaraverRouteBuilder', function () {
+        $this->app->bind('Taciclei\SymfonysFacade\Facades\Routes\LaraverRouteBuilder', function () {
             return $this->routebuilder;
         });
 
-        $this->app->bind('VilniusTechnology\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade', function () {
+        $this->app->bind('Taciclei\SymfonysFacade\Facades\Commands\SymfonyCommandsFacade', function () {
             return $this->symfonyCommandsFacade;
         });
     }
@@ -75,7 +71,7 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
      */
     public function setupRoutes(Router $router)
     {
-        $router->group(['namespace' => 'VilniusTechnology\SymfonysFacade\Controllers'], function () {
+        $router->group(['namespace' => 'Taciclei\SymfonysFacade\Controllers'], function () {
             require __DIR__ . '/Http/routes.php';
         });
 
@@ -101,6 +97,6 @@ class SymfonysFacadeServiceProvider extends ServiceProvider
      * Registers commands facade.
      */
     public function registerCommands() {
-        $this->commands(['VilniusTechnology\SymfonysFacade\Commands\SymfonyCommand']);
+        //$this->commands(['Taciclei\SymfonysFacade\Commands\SymfonyCommand']);
     }
 }

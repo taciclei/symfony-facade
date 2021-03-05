@@ -1,11 +1,11 @@
 <?php
 
-namespace taciclei\SymfonysFacade\Facades\Commands;
+namespace Taciclei\SymfonysFacade\Facades\Commands;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
-use taciclei\SymfonysFacade\Services\Symfony\SymfonyKernel;
+use Taciclei\SymfonysFacade\Services\Symfony\SymfonyKernel;
 
 /*
  * Created by PhpStorm.
