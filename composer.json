@@ -1,5 +1,5 @@
 {
-    "name": "taciclei/symfony-facade",
+    "name": "phpjit/symfony-facade",
     "description": "Symfonys facade for The Laravel Framework.",
     "keywords": ["framework", "laravel", "symfony"],
     "license": "MIT",
